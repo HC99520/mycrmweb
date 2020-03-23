@@ -93,6 +93,7 @@
                   <input class="form-control" id="phone" name="phone">
 
                 </div>
+<<<<<<< HEAD
                 <div class="form-group col-lg-3">
                   <label>获取验证码</label>
                   <input class="form-control" id="code">
@@ -104,6 +105,19 @@
                     onclick="registerTest()">获取验证码</button>
 
                 </div>
+=======
+                 <div class="form-group col-lg-3">
+                   <label>获取验证码</label>
+                   <input class="form-control" id="code">
+
+                 </div>
+                 <div class="form-group col-lg-3">
+
+                   <button class="btn btn-success loginbtn" style="margin-top: 30px;"
+                     onclick="registerTest()">获取验证码</button>
+
+                 </div>
+>>>>>>> d02cc6ead4937e3c431827774394259ec1619faa
                 <div class="form-group col-lg-6">
                   <label>密码</label>
                   <input type="password" class="form-control" id="password">
@@ -122,6 +136,7 @@
                 </div>
                 <div class="form-group col-lg-6">
                   <label>年龄</label>
+<<<<<<< HEAD
                   <!-- <input class="form-control" id="age"> -->
                   <select class="form-control" id="age">
                   </select>
@@ -150,6 +165,24 @@
                 </div>
 
 
+=======
+                  <input class="form-control" id="age">
+                </div>
+                <div class="form-group col-lg-6">
+                  <label>姓名</label>
+                  <input class="form-control"  id="name">
+                </div>
+                <div class="form-group col-lg-6">
+                  <label>性别</label>
+                  <input class="form-control" id="sex">
+                </div>
+                <div class="form-group col-lg-6">
+                  <label>水平[1，2，3]</label>
+                  <input class="form-control" id="level">
+                </div>
+
+               
+>>>>>>> d02cc6ead4937e3c431827774394259ec1619faa
 
                 <div class="checkbox col-lg-12">
                   <input type="checkbox" class="i-checks" checked> 订阅我们的时事通讯
@@ -171,8 +204,13 @@
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<<<<<<< HEAD
   <!-- 存储cookie的js -->
   <script src="js/jquery.cookie.js"></script>
+=======
+   <!-- 存储cookie的js -->
+   <script src="js/jquery.cookie.js"></script>
+>>>>>>> d02cc6ead4937e3c431827774394259ec1619faa
   <script>
     function registerTest() {
       var code = $("#code").val();
@@ -191,6 +229,7 @@
       })
     }
 
+<<<<<<< HEAD
     for (var i = 1; i < 121; i++) {
       var newOption = document.createElement("option");
        newOption.text = i;
@@ -321,6 +360,135 @@
           }
         })
       }
+=======
+ 
+   
+
+
+    function register() {
+      var phone = $("#phone").val();
+      var password = $("#password").val();
+      var password2 = $("#password2").val();
+      var email = $("#email").val();
+      var age = $("#age").val();
+      var sex = $("#sex").val();
+      var level = $("#level").val();
+      var code = $("#code").val();
+      var name = $("#name").val();
+      var address = $("#address").val();
+
+      var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+      var isEmail = /^\w+@[a-zA-Z0-9]{2,10}(?:\.[a-z]{2,4}){1,3}$/;
+      var pattern = /^(男|女)$/;
+      var isAge = /^(?:[1-9][0-9]?|1[01][0-9]|120)$/;
+      var isCode = /^\d{6}$/;
+      if (phone == '') {
+        alert("手机号不能和为空");
+        return;
+      }
+      if (!reg.test(phone)) {
+        alert("手机号码格式不对");
+        return;
+      }
+      if (code == '') {
+      alert("验证码不能为空");
+      return;
+      }
+      if (!isCode.test(code)) {
+      alert("验证码格式错误");
+      return;
+      }
+      if (password == '') {
+        alert("密码不能为空");
+        return;
+      }
+      if (password2 == '') {
+        alert("密码不能为空");
+        return;
+      }
+      if (password != password2) {
+        alert("密码不一致")
+      }
+      if (email == '') {
+        alert("邮箱不能为空");
+        return;
+      }
+      if (!isEmail.test(email)) {
+        alert("邮箱格式输入有误");
+        return;
+      }
+      if (address == '') {
+        alert("住址不能为空");
+        return;
+      }
+      if (age == '') {
+        alert("年龄不能为空");
+        return;
+      }
+      if (!isAge.test(age)) {
+        alert("年龄是1-120之间有效");
+        return;
+      }
+      if (name == '') {
+        alert("姓名不能为空");
+        return;
+      }
+
+
+
+
+      if (sex == '') {
+        alert("性别不能为空");
+        return;
+      }
+      if (!pattern.test(sex)) {
+        alert("请输入男或女");
+        return;
+      }
+      if (level == '') {
+        alert("水平不能为空");
+        return;
+      }
+      if (level != 1 && level != 2 && level != 3) {
+        alert("只能填写[1,2,3]");
+        return;
+      }
+      
+
+      $.ajax({
+        url: 'http://localhost:9000/web/CustomerController/addCustomer',
+        data: {
+          name: name,
+          address: address,
+          phone: phone,
+          pCode: password,
+          sex:sex,
+          age:age,
+          level:level,
+          email:email,
+          code:code
+
+        },
+        type: 'get',
+        dataType: 'json',
+        success: function (data) {
+            
+          if(data==1){
+  
+            alert("注册成功，跳转登录页面")
+            window.location.href = "login.html";
+            return true
+          }else{
+             alert("验证码有误")
+            return false;
+           
+          }
+        }
+      })
+    }
+
+
+>>>>>>> d02cc6ead4937e3c431827774394259ec1619faa
   </script>
 
   <!-- jquery
